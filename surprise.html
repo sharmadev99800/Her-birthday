@@ -42,3 +42,47 @@
      Happy Birthday once again, meri jaan 💕</p>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday ❤️</title>
+  <style>
+    body {
+      text-align: center;
+      background-color: #ffe6f0;
+      font-family: 'Comic Sans MS', cursive;
+    }
+    h1 {
+      color: #ff4081;
+      margin-top: 100px;
+    }
+    audio {
+      margin-top: 30px;
+    }
+    .play-btn {
+      padding: 12px 20px;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .play-btn:hover {
+      background-color: #e73370;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday, Love! 🎂🎶</h1>
+  <audio id="birthdayAudio" controls>
+    <source src="audio" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <br>
+  <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">Play Music</button>
+</body>
+</html>

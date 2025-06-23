@@ -1,3 +1,10 @@
+<script>
+  // Redirect if they didn't come from the password page
+  if (document.referrer.indexOf("index.html") === -1) {
+    alert("You're not allowed to view this page directly!");
+    window.location.href = "index.html";
+  }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Aalu!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(120deg, #ffe4e1, #ffc0cb);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: #8b0000;
+    }
+    h1 {
+      font-size: 2.5em;
+      animation: fadeIn 2s ease-in;
+    }
+    p {
+      font-size: 1.2em;
+      margin: 20px;
+    }
+    .btn {
+      margin: 10px;
+      padding: 15px 25px;
+      background-color: #ff69b4;
+      border: none;
+      border-radius: 25px;
+      color: white;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #ff1493;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy Birthday Aalu!!</h1>
+  <p>Today you turned 17 years. I wanted to make this birthday memorable,<br>
+     you mean to me a lot. I love youu ❤️<br>
+     Now enjoy the website!</p>
+
+  <button class="btn" onclick="location.href='surprise.html'">🎁 Click for a surprise</button>
+  <button class="btn" onclick="location.href='gallery.html'">📸 Our Memories</button>
+</body>
+</html>

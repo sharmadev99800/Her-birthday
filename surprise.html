@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Surprise My Love 💖</title>
@@ -13,40 +12,34 @@
     body {
       background-color: #fff0f5;
       font-family: 'Dancing Script', cursive;
-      overflow: hidden;
       text-align: center;
       color: #d63384;
+      overflow-x: hidden;
     }
-
     h1 {
       font-size: 3em;
       margin-top: 20px;
       color: #ff1493;
       animation: fadeIn 2s ease-in-out;
     }
-
     p {
       font-size: 1.4em;
       margin: 15px;
       animation: fadeIn 3s ease-in-out;
     }
-
     .heart {
       font-size: 3em;
       animation: beat 1s infinite;
       margin-top: 10px;
     }
-
     @keyframes beat {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(-20px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
     .scroll-container {
       width: 100%;
       height: 80vh;
@@ -54,20 +47,17 @@
       margin-top: 20px;
       position: relative;
     }
-
     .image-strip {
       display: flex;
       flex-direction: column;
       animation: scrollUp 30s linear infinite;
     }
-
     .image-row {
       display: flex;
       justify-content: center;
       gap: 20px;
       margin-bottom: 20px;
     }
-
     .image-row img {
       height: 300px;
       width: 200px;
@@ -75,12 +65,10 @@
       border-radius: 16px;
       box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
     }
-
     @keyframes scrollUp {
       0% { transform: translateY(0); }
       100% { transform: translateY(-50%); }
     }
-
     #confetti-canvas {
       position: fixed;
       top: 0;
@@ -90,114 +78,93 @@
       pointer-events: none;
       z-index: 0;
     }
-
-    audio {
-      margin-top: 30px;
+    #countdown {
+      font-size: 2em;
+      margin: 20px auto;
+      color: #ff1493;
+      animation: fadeIn 3s ease-in-out;
     }
-
-    .play-btn {
-      margin-top: 20px;
-      padding: 12px 24px;
-      background-color: #ff69b4;
-      color: white;
-      border: none;
-      border-radius: 25px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.3s;
-      z-index: 2;
+    .heart-fall {
+      position: fixed;
+      top: -50px;
+      font-size: 24px;
+      color: #ff69b4;
+      animation: fall linear forwards;
+      z-index: 1;
+      pointer-events: none;
     }
-
-    .play-btn:hover {
-      background-color: #ff1493;
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <canvas id="confetti-canvas"></canvas>
-
-  <div class="heart">💖</div>
-  <h1>Surprise, My Love!</h1>
-  <p>You’re the most precious part of my life.<br>
-     I hope this little surprise brings a smile to your face.<br>
-     Happy Birthday once again, meri sanu 💕</p>
-
-  <div class="scroll-container">
-    <div class="image-strip" id="imageStrip">
-      <!-- Repeat once to loop better -->
-      <div class="image-row">
-        <img src="images/a.jpg" />
-        <img src="images/b.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/c.jpg" />
-        <img src="images/d.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/e.jpg" />
-        <img src="images/f.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/g.jpg" />
-        <img src="images/h.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/i.jpg" />
-        <img src="images/j.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/k.jpg" />
-        <img src="images/l.jpg" />
-      </div>
-      <!-- Duplicate for smooth looping -->
-      <div class="image-row">
-        <img src="images/a.jpg" />
-        <img src="images/b.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/c.jpg" />
-        <img src="images/d.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/e.jpg" />
-        <img src="images/f.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/g.jpg" />
-        <img src="images/h.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/i.jpg" />
-        <img src="images/j.jpg" />
-      </div>
-      <div class="image-row">
-        <img src="images/k.jpg" />
-        <img src="images/l.jpg" />
-      </div>
-    </div>
+<canvas id="confetti-canvas"></canvas>
+<div class="heart">💖</div>
+<h1>Surprise, My Love!</h1>
+<p>You’re the most precious part of my life.<br>
+   I hope this little surprise brings a smile to your face.<br>
+   Happy Birthday once again, meri sanu 💕</p><div id="countdown"></div><div class="scroll-container">
+  <div class="image-strip">
+    <!-- 12 images (2 per row) -->
+    <div class="image-row"><img src="images/a.jpg"><img src="images/b.jpg"></div>
+    <div class="image-row"><img src="images/c.jpg"><img src="images/d.jpg"></div>
+    <div class="image-row"><img src="images/e.jpg"><img src="images/f.jpg"></div>
+    <div class="image-row"><img src="images/g.jpg"><img src="images/h.jpg"></div>
+    <div class="image-row"><img src="images/i.jpg"><img src="images/j.jpg"></div>
+    <div class="image-row"><img src="images/k.jpg"><img src="images/l.jpg"></div>
+    <!-- Repeat for smooth loop -->
+    <div class="image-row"><img src="images/a.jpg"><img src="images/b.jpg"></div>
+    <div class="image-row"><img src="images/c.jpg"><img src="images/d.jpg"></div>
+    <div class="image-row"><img src="images/e.jpg"><img src="images/f.jpg"></div>
+    <div class="image-row"><img src="images/g.jpg"><img src="images/h.jpg"></div>
+    <div class="image-row"><img src="images/i.jpg"><img src="images/j.jpg"></div>
+    <div class="image-row"><img src="images/k.jpg"><img src="images/l.jpg"></div>
   </div>
+</div><audio id="birthdayAudio" autoplay loop muted>
+  <source src="audio" type="audio/mpeg">
+</audio>
+<button onclick="document.getElementById('birthdayAudio').play(); document.getElementById('birthdayAudio').muted = false;">🎵 Play Music</button><script>
+  const canvas = document.getElementById('confetti-canvas');
+  const confetti = window.confetti.create(canvas, { resize: true, useWorker: true });
+  setInterval(() => {
+    confetti({ particleCount: 2, spread: 60, origin: { y: 0 }, colors: ['#ff69b4', '#ff1493', '#ffb6c1'] });
+  }, 150);
 
-  <audio id="birthdayAudio" controls>
-    <source src="audio" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-  <br>
-  <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">Play Music 🎵</button>
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart-fall";
+    heart.innerText = "💖";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+    heart.style.fontSize = (20 + Math.random() * 20) + "px";
+    heart.style.transform = `rotate(${Math.random() * 360}deg)`;
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 300);
 
-  <!-- Confetti JS -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
-  <script>
-    const canvas = document.getElementById('confetti-canvas');
-    const confetti = confetti.create(canvas, { resize: true, useWorker: true });
+  // Countdown logic
+  const targetDate = new Date("2025-07-01T00:00:00").getTime();
+  const countdownEl = document.getElementById("countdown");
 
-    setInterval(() => {
-      confetti({
-        particleCount: 2,
-        spread: 60,
-        origin: { y: 0 },
-        colors: ['#ff69b4', '#ff1493', '#ffb6c1']
-      });
-    }, 150);
-  </script>
-</body>
+  const countdownTimer = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+    if (distance < 0) {
+      clearInterval(countdownTimer);
+      countdownEl.innerHTML = "<strong>🎉 It's Time to Celebrate! 🎉</strong>";
+      confetti({ particleCount: 200, spread: 100, origin: { y: 0.6 } });
+    } else {
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      countdownEl.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s until surprise 🌟`;
+    }
+  }, 1000);
+</script><script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script></body>
 </html>

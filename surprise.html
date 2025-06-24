@@ -1,88 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Surprise 🎉</title>
+  <meta charset="UTF-8" />
+  <title>Surprise for You 💘</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
+      font-family: 'Dancing Script', cursive;
       background-color: #fff0f5;
-      font-family: cursive;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .message {
       text-align: center;
+      font-size: 2em;
+      margin: 40px 20px 20px;
+      color: #e91e63;
+      animation: fadeIn 2s ease-in-out;
     }
-    h1 {
-      color: #ff1493;
-      font-size: 2.5em;
+
+    .gallery {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      padding: 20px;
+      gap: 20px;
+      scroll-behavior: smooth;
     }
-    p {
-      color: #d63384;
-      font-size: 1.2em;
-      margin: 20px;
+
+    .gallery img {
+      height: 250px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      transition: transform 0.5s ease-in-out;
+      animation: float 6s ease-in-out infinite;
     }
+
+    .gallery img:hover {
+      transform: scale(1.1);
+    }
+
     .heart {
       font-size: 3em;
+      text-align: center;
       animation: beat 1s infinite;
+      color: #ff69b4;
+      margin-top: 10px;
     }
+
     @keyframes beat {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.2); }
     }
-  </style>
-</head>
-<body>
-  <div class="heart">💖</div>
-  <h1>Surprise, My Love!</h1>
-  <p>You’re the most precious part of my life.<br>
-     I hope this little surprise brings a smile to your face.<br>
-     Happy Birthday once again, meri jaan 💕</p>
-</body>
-</html>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Happy Birthday ❤️</title>
-  <style>
-    body {
-      text-align: center;
-      background-color: #ffe6f0;
-      font-family: 'Comic Sans MS', cursive;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    h1 {
-      color: #ff4081;
-      margin-top: 100px;
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
-    audio {
-      margin-top: 30px;
-    }
+
     .play-btn {
-      padding: 12px 20px;
-      background-color: #ff4081;
+      display: block;
+      margin: 30px auto;
+      padding: 15px 30px;
+      background: linear-gradient(135deg, #ff69b4, #ff1493);
       color: white;
       border: none;
-      border-radius: 12px;
-      font-size: 16px;
+      border-radius: 50px;
+      font-size: 18px;
+      font-family: 'Dancing Script', cursive;
       cursor: pointer;
-      margin-top: 20px;
+      box-shadow: 0 8px 16px rgba(255, 105, 180, 0.3);
+      transition: all 0.3s ease;
+      letter-spacing: 1px;
     }
+
     .play-btn:hover {
-      background-color: #e73370;
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff1493, #c71585);
+      box-shadow: 0 10px 20px rgba(255, 20, 147, 0.5);
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
     }
   </style>
 </head>
 <body>
-  <h1>Happy Birthday, Love! 🎂🎶</h1>
-  <audio id="birthdayAudio" controls>
-    <source src="audio" type="audio/mpeg">
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="heart">💖</div>
+  <div class="message">You are my most beautiful story, meri jaan 🥺💕<br>Enjoy this little surprise...</div>
+
+  <!-- Image Gallery -->
+  <div class="gallery">
+    <img src="images/a.jpg" alt="A">
+    <img src="images/b.jpg" alt="B">
+    <img src="images/c.jpg" alt="C">
+    <img src="images/d.jpg" alt="D">
+    <img src="images/e.jpg" alt="E">
+    <img src="images/f.jpg" alt="F">
+    <img src="images/g.jpg" alt="G">
+    <img src="images/h.jpg" alt="H">
+    <img src="images/i.jpg" alt="I">
+    <img src="images/j.jpg" alt="J">
+    <img src="images/k.jpg" alt="K">
+    <img src="images/l.jpg" alt="L">
+  </div>
+
+  <!-- Music -->
+  <audio id="birthdayAudio">
+    <source src="audio" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
-  <br>
-  <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">Play Music</button>
+  <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">💗 Play Music</button>
+
+  <!-- Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script>
+    const canvas = document.getElementById('confetti-canvas');
+    const myConfetti = confetti.create(canvas, { resize: true, useWorker: true });
+
+    setInterval(() => {
+      myConfetti({
+        particleCount: 80,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }, 2500);
+  </script>
+
 </body>
 </html>

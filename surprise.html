@@ -98,7 +98,6 @@
       margin-top: 10px;
       color: #c71585;
     }
-
     .heart-fall {
       position: fixed;
       top: -50px;
@@ -108,7 +107,6 @@
       z-index: 1;
       pointer-events: none;
     }
-
     @keyframes fall {
       to {
         transform: translateY(110vh) rotate(360deg);
@@ -133,32 +131,57 @@
   <div class="countdown" id="countdown">⏳ Loading...</div>
 
   <div class="scroll-container">
-    <div class="image-strip" id="imageStrip">
-      <!-- Repeated images for smooth vertical scroll -->
-      ${["a","b","c","d","e","f","g","h","i","j","k","l","a","b","c","d","e","f","g","h","i","j","k","l"]
-        .map((val, i, arr) => i % 2 === 0 ? `
-          <div class="image-row">
-            <img src="images/${arr[i]}.jpg" />
-            <img src="images/${arr[i+1]}.jpg" />
-          </div>
-        ` : ``).join("")}
+    <div class="image-strip">
+      <div class="image-row">
+        <img src="images/a.jpg" />
+        <img src="images/b.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/c.jpg" />
+        <img src="images/d.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/e.jpg" />
+        <img src="images/f.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/g.jpg" />
+        <img src="images/h.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/i.jpg" />
+        <img src="images/j.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/k.jpg" />
+        <img src="images/l.jpg" />
+      </div>
+      <!-- Optional duplicate for infinite scroll -->
+      <div class="image-row">
+        <img src="images/a.jpg" />
+        <img src="images/b.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/c.jpg" />
+        <img src="images/d.jpg" />
+      </div>
     </div>
   </div>
 
   <audio id="birthdayAudio" autoplay loop muted>
-    <source src="audio.mp3" type="audio/mpeg">
+    <source src="audio" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
   <script>
-    // 🎵 Unmute on first interaction
+    // Unmute music on user click
     window.addEventListener('click', () => {
       const audio = document.getElementById('birthdayAudio');
       audio.muted = false;
       audio.play();
     }, { once: true });
 
-    // 🎉 Confetti
+    // Confetti effect
     const canvas = document.getElementById('confetti-canvas');
     const confetti = window.confetti.create(canvas, { resize: true, useWorker: true });
     setInterval(() => {
@@ -170,7 +193,7 @@
       });
     }, 150);
 
-    // 💖 Falling Hearts Random Directions
+    // Falling hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart-fall";
@@ -179,22 +202,19 @@
       heart.style.animationDuration = (3 + Math.random() * 2) + "s";
       heart.style.fontSize = (20 + Math.random() * 20) + "px";
       heart.style.transform = `translateX(${Math.random() * 100 - 50}px)`;
-
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
     }
     setInterval(createHeart, 300);
 
-    // ⏳ Countdown Timer
-    const countdownDate = new Date().getTime() + 10000; // 10 seconds for demo
+    // Countdown logic
+    const countdownDate = new Date().getTime() + 10000; // 10 seconds demo
     const countdownEl = document.getElementById("countdown");
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
-
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
       countdownEl.innerHTML = `🎉 Countdown: ${seconds}s`;
 
       if (distance < 0) {

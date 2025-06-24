@@ -10,11 +10,10 @@
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       background-color: #fff0f5;
       font-family: 'Dancing Script', cursive;
-      overflow: hidden;
+      overflow-x: hidden;
       text-align: center;
       color: #d63384;
     }
@@ -30,11 +29,6 @@
       font-size: 1.5em;
       margin: 10px 20px;
       animation: fadeIn 3s ease-in-out;
-    }
-
-    .heart {
-      font-size: 3em;
-      margin-top: 10px;
     }
 
     @keyframes fadeIn {
@@ -54,11 +48,6 @@
       display: flex;
       flex-direction: column;
       animation: scrollUp 40s linear infinite;
-      transition: filter 1s ease;
-    }
-
-    .blurred {
-      filter: blur(15px);
     }
 
     .image-row {
@@ -74,6 +63,11 @@
       object-fit: cover;
       border-radius: 16px;
       box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+      transition: filter 1s ease;
+    }
+
+    .blurred img {
+      filter: blur(8px);
     }
 
     @keyframes scrollUp {
@@ -134,33 +128,41 @@
 <body>
   <canvas id="confetti-canvas"></canvas>
 
-  <div class="heart">💖</div>
   <h1>Surprise, My Love!</h1>
   <p>Shreya, you're the most precious part of my life.<br>
      I hope this little surprise brings a big smile to your face!<br>
      Happy Birthday once again, meri Sanu 💕</p>
 
-  <button class="play-btn" onclick="document.getElementById('birthdayAudio').play(); this.style.display='none';">
-    ▶️ Play Music
-  </button>
+  <button class="play-btn" onclick="startAudio()">▶️ Play Music</button>
 
   <div class="countdown" id="countdown">⏳ Loading...</div>
 
   <div class="scroll-container">
     <div class="image-strip blurred" id="imageStrip">
-      <!-- Images in rows of 2 -->
-      <div class="image-row"><img src="images/a.jpg" /><img src="images/b.jpg" /></div>
-      <div class="image-row"><img src="images/c.jpg" /><img src="images/d.jpg" /></div>
-      <div class="image-row"><img src="images/e.jpg" /><img src="images/f.jpg" /></div>
-      <div class="image-row"><img src="images/g.jpg" /><img src="images/h.jpg" /></div>
-      <div class="image-row"><img src="images/i.jpg" /><img src="images/j.jpg" /></div>
-      <div class="image-row"><img src="images/k.jpg" /><img src="images/l.jpg" /></div>
-      <div class="image-row"><img src="images/a.jpg" /><img src="images/b.jpg" /></div>
-      <div class="image-row"><img src="images/c.jpg" /><img src="images/d.jpg" /></div>
-      <div class="image-row"><img src="images/e.jpg" /><img src="images/f.jpg" /></div>
-      <div class="image-row"><img src="images/g.jpg" /><img src="images/h.jpg" /></div>
-      <div class="image-row"><img src="images/i.jpg" /><img src="images/j.jpg" /></div>
-      <div class="image-row"><img src="images/k.jpg" /><img src="images/l.jpg" /></div>
+      <div class="image-row">
+        <img src="images/a.jpg" />
+        <img src="images/b.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/c.jpg" />
+        <img src="images/d.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/e.jpg" />
+        <img src="images/f.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/g.jpg" />
+        <img src="images/h.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/i.jpg" />
+        <img src="images/j.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/k.jpg" />
+        <img src="images/l.jpg" />
+      </div>
     </div>
   </div>
 
@@ -169,28 +171,17 @@
     Your browser does not support the audio element.
   </audio>
 
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
   <script>
-    // 🎵 Unmute on first interaction
-    window.addEventListener('click', () => {
+    // Enable audio on click
+    function startAudio() {
       const audio = document.getElementById('birthdayAudio');
       audio.muted = false;
       audio.play();
-    }, { once: true });
+      document.querySelector('.play-btn').style.display = 'none';
+    }
 
-    // 🎊 Confetti setup
-    const canvas = document.getElementById('confetti-canvas');
-    const confetti = window.confetti.create(canvas, { resize: true, useWorker: true });
-
-    setInterval(() => {
-      confetti({
-        particleCount: 2,
-        spread: 60,
-        origin: { y: 0 },
-        colors: ['#ff69b4', '#ff1493', '#ffb6c1']
-      });
-    }, 150);
-
-    // 💖 Falling hearts
+    // Falling Hearts
     function createHeart() {
       const heart = document.createElement("div");
       heart.className = "heart-fall";
@@ -202,24 +193,29 @@
       document.body.appendChild(heart);
       setTimeout(() => heart.remove(), 5000);
     }
-
     setInterval(createHeart, 300);
 
-    // ⏳ Countdown (5 seconds)
-    const countdownDate = new Date().getTime() + 5000;
+    // Confetti
+    const canvas = document.getElementById('confetti-canvas');
+    const confetti = window.confetti.create(canvas, { resize: true, useWorker: true });
+
+    // Countdown Logic
     const countdownEl = document.getElementById("countdown");
     const imageStrip = document.getElementById("imageStrip");
+
+    const countdownDate = new Date().getTime() + 5000; // 5 seconds
 
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
+
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
       countdownEl.innerHTML = `🎉 Countdown: ${seconds}s`;
 
       if (distance < 0) {
         clearInterval(timer);
         countdownEl.innerHTML = "🎊 It's time to celebrate, Shreya! 🎊";
-        imageStrip.classList.remove("blurred");  // 🔓 Reveal images
+        imageStrip.classList.remove("blurred");
         launchCelebration();
       }
     }, 1000);
@@ -235,8 +231,5 @@
       alert("💖 Happy Surprise, Shreya! 💖");
     }
   </script>
-
-  <!-- Confetti Library -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </body>
 </html>

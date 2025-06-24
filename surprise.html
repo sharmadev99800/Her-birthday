@@ -5,45 +5,28 @@
   <title>Surprise for You 💘</title>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Dancing Script', cursive;
       background-color: #fff0f5;
       overflow-x: hidden;
+      text-align: center;
     }
 
     .message {
-      text-align: center;
       font-size: 2em;
-      margin: 40px 20px 20px;
+      margin: 30px 10px 20px;
       color: #e91e63;
       animation: fadeIn 2s ease-in-out;
     }
 
-    .gallery {
-      display: flex;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 20px;
-      gap: 20px;
-      scroll-behavior: smooth;
-    }
-
-    .gallery img {
-      height: 250px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.5s ease-in-out;
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .gallery img:hover {
-      transform: scale(1.1);
-    }
-
     .heart {
       font-size: 3em;
-      text-align: center;
       animation: beat 1s infinite;
       color: #ff69b4;
       margin-top: 10px;
@@ -59,20 +42,38 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @keyframes float {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+    .scroller-wrapper {
+      overflow: hidden;
+      width: 100%;
+      margin-top: 30px;
+    }
+
+    .scroller {
+      display: flex;
+      width: fit-content;
+      animation: scroll 40s linear infinite;
+    }
+
+    .scroller img {
+      height: 240px;
+      width: auto;
+      margin: 0 10px;
+      border-radius: 20px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
     }
 
     .play-btn {
-      display: block;
+      padding: 14px 28px;
       margin: 30px auto;
-      padding: 15px 30px;
       background: linear-gradient(135deg, #ff69b4, #ff1493);
       color: white;
       border: none;
-      border-radius: 50px;
+      border-radius: 40px;
       font-size: 18px;
       font-family: 'Dancing Script', cursive;
       cursor: pointer;
@@ -101,22 +102,43 @@
   <canvas id="confetti-canvas"></canvas>
 
   <div class="heart">💖</div>
-  <div class="message">You are my most beautiful story, meri jaan 🥺💕<br>Enjoy this little surprise...</div>
+  <div class="message">
+    You are the most beautiful chapter of my life 💕<br>
+    Just scroll with your heart... 💗
+  </div>
 
-  <!-- Image Gallery -->
-  <div class="gallery">
-    <img src="images/a.jpg" alt="A">
-    <img src="images/b.jpg" alt="B">
-    <img src="images/c.jpg" alt="C">
-    <img src="images/d.jpg" alt="D">
-    <img src="images/e.jpg" alt="E">
-    <img src="images/f.jpg" alt="F">
-    <img src="images/g.jpg" alt="G">
-    <img src="images/h.jpg" alt="H">
-    <img src="images/i.jpg" alt="I">
-    <img src="images/j.jpg" alt="J">
-    <img src="images/k.jpg" alt="K">
-    <img src="images/l.jpg" alt="L">
+  <!-- Auto-Scrolling Image Strip -->
+  <div class="scroller-wrapper">
+    <div class="scroller">
+      <!-- Repeat 2 times for seamless loop -->
+      <!-- First Set -->
+      <img src="images/a.jpg" alt="a" />
+      <img src="images/b.jpg" alt="b" />
+      <img src="images/c.jpg" alt="c" />
+      <img src="images/d.jpg" alt="d" />
+      <img src="images/e.jpg" alt="e" />
+      <img src="images/f.jpg" alt="f" />
+      <img src="images/g.jpg" alt="g" />
+      <img src="images/h.jpg" alt="h" />
+      <img src="images/i.jpg" alt="i" />
+      <img src="images/j.jpg" alt="j" />
+      <img src="images/k.jpg" alt="k" />
+      <img src="images/l.jpg" alt="l" />
+
+      <!-- Second Set (duplicate for looping) -->
+      <img src="images/a.jpg" alt="a" />
+      <img src="images/b.jpg" alt="b" />
+      <img src="images/c.jpg" alt="c" />
+      <img src="images/d.jpg" alt="d" />
+      <img src="images/e.jpg" alt="e" />
+      <img src="images/f.jpg" alt="f" />
+      <img src="images/g.jpg" alt="g" />
+      <img src="images/h.jpg" alt="h" />
+      <img src="images/i.jpg" alt="i" />
+      <img src="images/j.jpg" alt="j" />
+      <img src="images/k.jpg" alt="k" />
+      <img src="images/l.jpg" alt="l" />
+    </div>
   </div>
 
   <!-- Music -->
@@ -126,7 +148,7 @@
   </audio>
   <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">💗 Play Music</button>
 
-  <!-- Confetti Script -->
+  <!-- Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
     const canvas = document.getElementById('confetti-canvas');
@@ -134,12 +156,11 @@
 
     setInterval(() => {
       myConfetti({
-        particleCount: 80,
+        particleCount: 60,
         spread: 70,
         origin: { y: 0.6 }
       });
     }, 2500);
   </script>
-
 </body>
 </html>

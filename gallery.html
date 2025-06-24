@@ -62,8 +62,8 @@
       margin-bottom: 20px;
     }
     .img-circle, .img-rectangle, .img-heart {
-      width: 100px;
-      height: 100px;
+      width: 160px;
+      height: 160px;
       object-fit: cover;
       position: relative;
     }
@@ -71,8 +71,8 @@
       border-radius: 50%;
     }
     .img-rectangle {
-      width: 120px;
-      height: 80px;
+      width: 180px;
+      height: 120px;
       border-radius: 8px;
     }
     .img-heart {
@@ -87,8 +87,8 @@
     }
     .sticker {
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 50px;
+      height: 50px;
       opacity: 0.9;
     }
     .sticker.img-circle {
@@ -153,40 +153,39 @@
       "Dancing Script",
       "Shadows Into Light",
       "Great Vibes"
-    ];const quotes = [
-  "You're my favorite notification.",
-  "I still get butterflies even though I’ve seen you a hundred times.",
-  "Every moment with you is like a beautiful dream.",
-  "I love you more than yesterday, but less than tomorrow.",
-  "You're the piece that completes my puzzle.",
-  "Together is my favorite place to be.",
-  "You make my heart smile.",
-  "You + Me = ❤️",
-  "You're the reason I look down at my phone and smile. Then walk into a pole.",
-  "I find pieces of you in every song I listen to.",
-  "Home is wherever I’m with you.",
-  "If I did anything right in my life, it was when I gave my heart to you.",
-  "You're my today and all of my tomorrows.",
-  "In your arms is my favorite place.",
-  "You're the poem I never knew how to write, and this life is the story I always wanted to tell.",
-  "You're the best decision I ever made.",
-  "You have my whole heart for my whole life.",
-  "My heart beats for you.",
-  "Every love story is beautiful, but ours is my favorite.",
-  "You're the one I want to be with forever.",
-  "You're my sun on a cloudy day.",
-  "You are the reason I believe in love.",
-  "Forever isn't long enough with you.",
-  "You’ve made my world more beautiful.",
-  "You’re my sunshine mixed with a little bit of hurricane.",
-  "You're the spark in my bonfire heart.",
-  "Loving you is like breathing—I just can’t stop.",
-  "You are my heart, my life, my entire existence.",
-  "You are my definition of perfect.",
-  "You’re not my number one, you’re my only one."
-];
-
-const imageShapes = ["img-circle", "img-rectangle", "img-heart"];
+    ];
+    const quotes = [
+      "You're my favorite notification.",
+      "I still get butterflies even though I’ve seen you a hundred times.",
+      "Every moment with you is like a beautiful dream.",
+      "I love you more than yesterday, but less than tomorrow.",
+      "You're the piece that completes my puzzle.",
+      "Together is my favorite place to be.",
+      "You make my heart smile.",
+      "You + Me = ❤️",
+      "You're the reason I look down at my phone and smile. Then walk into a pole.",
+      "I find pieces of you in every song I listen to.",
+      "Home is wherever I’m with you.",
+      "If I did anything right in my life, it was when I gave my heart to you.",
+      "You're my today and all of my tomorrows.",
+      "In your arms is my favorite place.",
+      "You're the poem I never knew how to write, and this life is the story I always wanted to tell.",
+      "You're the best decision I ever made.",
+      "You have my whole heart for my whole life.",
+      "My heart beats for you.",
+      "Every love story is beautiful, but ours is my favorite.",
+      "You're the one I want to be with forever.",
+      "You're my sun on a cloudy day.",
+      "You are the reason I believe in love.",
+      "Forever isn't long enough with you.",
+      "You’ve made my world more beautiful.",
+      "You’re my sunshine mixed with a little bit of hurricane.",
+      "You're the spark in my bonfire heart.",
+      "Loving you is like breathing—I just can’t stop.",
+      "You are my heart, my life, my entire existence.",
+      "You are my definition of perfect.",
+      "You’re not my number one, you’re my only one."
+    ];const imageShapes = ["img-circle", "img-rectangle", "img-heart"];
 
 const recentImages = [];
 function getRandomImage() {
@@ -221,7 +220,6 @@ for (let i = 1; i <= 30; i++) {
   }
   page.appendChild(container);
 
-  // Stickers (3 random from 1 to 30, with random shape and rotation)
   const usedStickers = [];
   const stickerShapes = ["img-circle", "img-rectangle", "img-heart"];
   for (let s = 0; s < 3; s++) {
@@ -234,8 +232,8 @@ for (let i = 1; i <= 30; i++) {
     const sticker = document.createElement("img");
     sticker.src = `stickers/${stickerNum}.png`;
     sticker.className = `sticker ${stickerShapes[Math.floor(Math.random() * 3)]}`;
-    sticker.style.top = Math.random() * 120 + "px";
-    sticker.style.left = Math.random() * 180 + "px";
+    sticker.style.top = Math.random() * 200 + "px";
+    sticker.style.left = Math.random() * 280 + "px";
     const rotate = (Math.random() * 16 - 8).toFixed(2);
     sticker.style.transform = `rotate(${rotate}deg)`;
     page.appendChild(sticker);

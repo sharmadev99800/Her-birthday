@@ -3,7 +3,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flipbook Love Album</title>
-  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&family=Pacifico&family=Amatic+SC&family=Satisfy&family=Courgette&family=Dancing+Script&family=Shadows+Into+Light&family=Great+Vibes&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -32,7 +32,7 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.2);
     }
     .book {
-      width: 750vw;
+      width: 1500vw;
       height: 100%;
       display: flex;
       transition: transform 1s ease;
@@ -91,6 +91,15 @@
       height: 30px;
       opacity: 0.9;
     }
+    .sticker.img-circle {
+      border-radius: 50%;
+    }
+    .sticker.img-rectangle {
+      border-radius: 6px;
+    }
+    .sticker.img-heart {
+      clip-path: path('M24.8,3.3c-4.8-3-9.6,0.3-11.1,2.8C11.3,3.6,6.5,0.3,1.7,3.3c-4.8,3-5.2,9.6-1,14.1l11.1,11.5c0.6,0.6,1.4,0.6,2,0L25.8,17.4C30,12.9,29.6,6.3,24.8,3.3z');
+    }
     .quote {
       font-size: 18px;
       color: #5e4c4c;
@@ -122,72 +131,148 @@
 </head>
 <body>
   <div class="book-wrapper">
-    <div id="book" class="book">
-      <!-- PAGE 1 -->
-      <div class="page">
-        <img src="stickers/sketch-heart.png" class="sketch-heart" alt="heart">
-        <div class="image-container">
-          <img src="images/1.jpg" class="img-circle" alt="photo" />
-          <img src="images/2.jpg" class="img-heart" alt="photo" />
-        </div>
-        <img src="sticker/1.png" class="sticker" style="top:20px;left:30px">
-        <img src="sticker/1.png" class="sticker" style="top:80px;right:40px">
-        <img src="sticker/1.png" class="sticker" style="bottom:30px;left:60px">
-        <div class="quote">"I fell in love with you because you loved me when I couldn't love myself."</div>
-      </div><!-- PAGE 2 -->
-  <div class="page">
-    <img src="stickers/sketch-heart.png" class="sketch-heart" alt="heart">
-    <div class="image-container">
-      <img src="images/3.jpg" class="img-rectangle" alt="photo" />
-      <img src="images/4.jpg" class="img-circle" alt="photo" />
-    </div>
-    <img src="sticker/1.png" class="sticker" style="top:25px;left:20px">
-    <img src="sticker/1.png" class="sticker" style="bottom:15px;right:10px">
-    <img src="sticker/1.png" class="sticker" style="top:100px;left:50px">
-    <div class="quote">"You make my heart smile every single day."</div>
+    <div id="book" class="book"></div>
   </div>
-
-  <!-- Continue pages using images/5.jpg to images/30.jpg and unique quotes -->
-</div>
-
-  </div>  <div class="controls">
+  <div class="controls">
     <button onclick="prevPage()">⟨ Prev</button>
     <button onclick="toggleMusic()">🎵 Play/Stop Music</button>
     <button onclick="nextPage()">Next ⟩</button>
-  </div>  <audio id="bgMusic" loop>
-    <source src="music/love-song.mp3" type="audio/mpeg" />
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="audio2" type="audio/mpeg" />
     Your browser does not support the audio element.
-  </audio>  <script>
-    let currentPage = 0;
-    const book = document.getElementById('book');
-    const totalPages = book.children.length / 2;
+  </audio>
+  <script>
+    const book = document.getElementById("book");
+    const fonts = [
+      "Indie Flower",
+      "Pacifico",
+      "Amatic SC",
+      "Satisfy",
+      "Courgette",
+      "Dancing Script",
+      "Shadows Into Light",
+      "Great Vibes"
+    ];const quotes = [
+  "You're my favorite notification.",
+  "I still get butterflies even though I’ve seen you a hundred times.",
+  "Every moment with you is like a beautiful dream.",
+  "I love you more than yesterday, but less than tomorrow.",
+  "You're the piece that completes my puzzle.",
+  "Together is my favorite place to be.",
+  "You make my heart smile.",
+  "You + Me = ❤️",
+  "You're the reason I look down at my phone and smile. Then walk into a pole.",
+  "I find pieces of you in every song I listen to.",
+  "Home is wherever I’m with you.",
+  "If I did anything right in my life, it was when I gave my heart to you.",
+  "You're my today and all of my tomorrows.",
+  "In your arms is my favorite place.",
+  "You're the poem I never knew how to write, and this life is the story I always wanted to tell.",
+  "You're the best decision I ever made.",
+  "You have my whole heart for my whole life.",
+  "My heart beats for you.",
+  "Every love story is beautiful, but ours is my favorite.",
+  "You're the one I want to be with forever.",
+  "You're my sun on a cloudy day.",
+  "You are the reason I believe in love.",
+  "Forever isn't long enough with you.",
+  "You’ve made my world more beautiful.",
+  "You’re my sunshine mixed with a little bit of hurricane.",
+  "You're the spark in my bonfire heart.",
+  "Loving you is like breathing—I just can’t stop.",
+  "You are my heart, my life, my entire existence.",
+  "You are my definition of perfect.",
+  "You’re not my number one, you’re my only one."
+];
 
-    function updateBookPosition() {
-      const offset = -currentPage * 100;
-      book.style.transform = `translateX(${offset}vw)`;
-    }
+const imageShapes = ["img-circle", "img-rectangle", "img-heart"];
 
-    function nextPage() {
-      if (currentPage < totalPages - 1) {
-        currentPage++;
-        updateBookPosition();
-      }
-    }
+const recentImages = [];
+function getRandomImage() {
+  let num;
+  do {
+    num = Math.floor(Math.random() * 30) + 1;
+  } while (recentImages.includes(num));
 
-    function prevPage() {
-      if (currentPage > 0) {
-        currentPage--;
-        updateBookPosition();
-      }
-    }
+  recentImages.push(num);
+  if (recentImages.length > 5) recentImages.shift();
+  return num;
+}
 
-    function toggleMusic() {
-      const music = document.getElementById('bgMusic');
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
-      }
-    }
-  </script></body>
+for (let i = 1; i <= 30; i++) {
+  const page = document.createElement("div");
+  page.className = "page";
+
+  const heart = document.createElement("img");
+  heart.src = "stickers/sketch-heart.png";
+  heart.className = "sketch-heart";
+  page.appendChild(heart);
+
+  const container = document.createElement("div");
+  container.className = "image-container";
+  for (let j = 0; j < 2 + (i % 2); j++) {
+    const imgNum = getRandomImage();
+    const img = document.createElement("img");
+    img.src = `images/${imgNum}.jpg`;
+    img.alt = "photo";
+    img.className = imageShapes[(i + j) % 3];
+    container.appendChild(img);
+  }
+  page.appendChild(container);
+
+  // Stickers (3 random from 1 to 30, with random shape and rotation)
+  const usedStickers = [];
+  const stickerShapes = ["img-circle", "img-rectangle", "img-heart"];
+  for (let s = 0; s < 3; s++) {
+    let stickerNum;
+    do {
+      stickerNum = Math.floor(Math.random() * 30) + 1;
+    } while (usedStickers.includes(stickerNum));
+    usedStickers.push(stickerNum);
+
+    const sticker = document.createElement("img");
+    sticker.src = `stickers/${stickerNum}.png`;
+    sticker.className = `sticker ${stickerShapes[Math.floor(Math.random() * 3)]}`;
+    sticker.style.top = Math.random() * 120 + "px";
+    sticker.style.left = Math.random() * 180 + "px";
+    const rotate = (Math.random() * 16 - 8).toFixed(2);
+    sticker.style.transform = `rotate(${rotate}deg)`;
+    page.appendChild(sticker);
+  }
+
+  const quote = document.createElement("div");
+  quote.className = "quote";
+  quote.innerText = quotes[i - 1];
+  quote.style.fontFamily = fonts[i % fonts.length];
+  page.appendChild(quote);
+
+  book.appendChild(page);
+}
+
+let currentPage = 0;
+function updateBookPosition() {
+  const offset = -currentPage * 100;
+  book.style.transform = `translateX(${offset}vw)`;
+}
+function nextPage() {
+  if (currentPage < 15 - 1) {
+    currentPage++;
+    updateBookPosition();
+  }
+}
+function prevPage() {
+  if (currentPage > 0) {
+    currentPage--;
+    updateBookPosition();
+  }
+}
+function toggleMusic() {
+  const music = document.getElementById("bgMusic");
+  if (music.paused) music.play();
+  else music.pause();
+}
+
+  </script>
+</body>
 </html>

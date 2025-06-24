@@ -104,4 +104,100 @@
       border-radius: 25px;
       font-size: 18px;
       cursor: pointer;
-      transition: 0.3
+      transition: 0.3s;
+      z-index: 2;
+    }
+
+    .play-btn:hover {
+      background-color: #ff1493;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="confetti-canvas"></canvas>
+
+  <div class="heart">💖</div>
+  <h1>Surprise, My Love!</h1>
+  <p>You’re the most precious part of my life.<br>
+     I hope this little surprise brings a smile to your face.<br>
+     Happy Birthday once again, meri jaan 💕</p>
+
+  <div class="scroll-container">
+    <div class="image-strip" id="imageStrip">
+      <!-- Repeat once to loop better -->
+      <div class="image-row">
+        <img src="images/a.jpg" />
+        <img src="images/b.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/c.jpg" />
+        <img src="images/d.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/e.jpg" />
+        <img src="images/f.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/g.jpg" />
+        <img src="images/h.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/i.jpg" />
+        <img src="images/j.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/k.jpg" />
+        <img src="images/l.jpg" />
+      </div>
+      <!-- Duplicate for smooth looping -->
+      <div class="image-row">
+        <img src="images/a.jpg" />
+        <img src="images/b.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/c.jpg" />
+        <img src="images/d.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/e.jpg" />
+        <img src="images/f.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/g.jpg" />
+        <img src="images/h.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/i.jpg" />
+        <img src="images/j.jpg" />
+      </div>
+      <div class="image-row">
+        <img src="images/k.jpg" />
+        <img src="images/l.jpg" />
+      </div>
+    </div>
+  </div>
+
+  <audio id="birthdayAudio" controls>
+    <source src="audio" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+  <br>
+  <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">Play Music 🎵</button>
+
+  <!-- Confetti JS -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    const canvas = document.getElementById('confetti-canvas');
+    const confetti = confetti.create(canvas, { resize: true, useWorker: true });
+
+    setInterval(() => {
+      confetti({
+        particleCount: 2,
+        spread: 60,
+        origin: { y: 0 },
+        colors: ['#ff69b4', '#ff1493', '#ffb6c1']
+      });
+    }, 150);
+  </script>
+</body>
+</html>

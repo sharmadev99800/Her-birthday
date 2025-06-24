@@ -89,7 +89,7 @@ p {
   transform: translate(-50%, -50%);
   font-size: 8rem;
   font-weight: bold;
-  color: rgba(255, 105, 180, 0.25); /* more visible */
+  color: rgba(255, 105, 180, 0.5); /* more visible */
   z-index: 0;
   pointer-events: none;
   font-family: 'Dancing Script', cursive;

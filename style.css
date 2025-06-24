@@ -89,12 +89,22 @@ p {
   transform: translate(-50%, -50%);
   font-size: 8rem;
   font-weight: bold;
-  color: rgba(255, 105, 180, 0.07);
+  color: rgba(255, 105, 180, 0.25); /* more visible */
   z-index: 0;
   pointer-events: none;
   font-family: 'Dancing Script', cursive;
+  animation: fadePulse 5s ease-in-out infinite;
 }
-
+@keyframes fadePulse {
+  0%, 100% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
 #confetti-canvas {
   position: fixed;
   top: 0;

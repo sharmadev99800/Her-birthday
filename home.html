@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Load Romantic Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
-
-  <!-- Link to external CSS file -->
-  <link rel="stylesheet" href="style.css" />
-
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Birthday Aalu!</title>
-</head>
-<body>
 
-  <!-- Password redirect protection -->
+  <!-- Load Romantic Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Redirect if user tries to skip password -->
   <script>
     if (document.referrer.indexOf("index.html") === -1) {
       alert("You're not allowed to view this page directly!");
       window.location.href = "index.html";
     }
   </script>
+</head>
+<body>
+
+  <!-- 11:11 Background -->
+  <div class="background-1111">11:11</div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
 
   <h1>Happy Birthday Aalu!!</h1>
 
@@ -42,51 +48,37 @@
   <br>
   <button class="play-btn" onclick="document.getElementById('birthdayAudio').play()">Play Music</button>
 
-  <!-- 11:11 Background -->
-  <div class="background-1111">11:11</div>
-
-  <!-- Canvas for confetti/hearts -->
-  <canvas id="confetti-canvas"></canvas>
-
-  <!-- Confetti + Heart Script -->
+  <!-- Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
   <script>
-    const canvas = document.getElementById("confetti-canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    window.onload = () => {
+      const duration = 5 * 1000;
+      const end = Date.now() + duration;
 
-    const hearts = [];
-    const heartCount = 50;
-    const emoji = "🩷";
+      const frame = () => {
+        confetti({
+          particleCount: 2,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#ff69b4', '#ffc0cb', '#fff0f5']
+        });
+        confetti({
+          particleCount: 2,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#ff69b4', '#ffc0cb', '#fff0f5']
+        });
 
-    for (let i = 0; i < heartCount; i++) {
-      hearts.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: 24 + Math.random() * 10,
-        speedY: 1 + Math.random() * 2,
-        opacity: 0.6 + Math.random() * 0.4
-      });
-    }
-
-    function draw() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.font = "24px Arial";
-      hearts.forEach(h => {
-        ctx.globalAlpha = h.opacity;
-        ctx.font = `${h.size}px 'Segoe UI Emoji'`;
-        ctx.fillText(emoji, h.x, h.y);
-        h.y += h.speedY;
-        if (h.y > canvas.height) {
-          h.y = -20;
-          h.x = Math.random() * canvas.width;
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
         }
-      });
-      ctx.globalAlpha = 1;
-      requestAnimationFrame(draw);
-    }
+      };
 
-    draw();
+      frame();
+    };
   </script>
+
 </body>
 </html>

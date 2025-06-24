@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,7 +26,7 @@
       width: 90vw;
       height: 85vh;
       overflow: hidden;
-      background-color: red;
+      background-image: url('stickers/diary-bg.png');
       background-size: cover;
       background-position: center;
       border-radius: 12px;
@@ -110,9 +111,7 @@
       text-align: center;
     }
     .controls {
-      margin-top: 10px;
-      display: flex;
-      gap: 20px;
+      margin-top: 8px;
     }
     button {
       padding: 10px 20px;
@@ -127,32 +126,55 @@
     button:hover {
       background-color: #f06292;
     }
+
+    /* Navigation arrows */
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ff80ab;
+      color: white;
+      border: none;
+      font-size: 30px;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 10;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    .nav-arrow:hover {
+      background: #f06292;
+    }
+    .nav-left {
+      left: 10px;
+    }
+    .nav-right {
+      right: 10px;
+    }
   </style>
 </head>
 <body>
   <div class="book-wrapper">
+    <button class="nav-arrow nav-left" onclick="prevPage()">⟨</button>
+    <button class="nav-arrow nav-right" onclick="nextPage()">⟩</button>
     <div id="book" class="book"></div>
   </div>
+
   <div class="controls">
-    <button onclick="prevPage()">⟨ Prev</button>
     <button onclick="toggleMusic()">🎵 Play/Stop Music</button>
-    <button onclick="nextPage()">Next ⟩</button>
   </div>
+
   <audio id="bgMusic" loop>
     <source src="audio2" type="audio/mpeg" />
     Your browser does not support the audio element.
   </audio>
+
   <script>
     const book = document.getElementById("book");
     const fonts = [
-      "Indie Flower",
-      "Pacifico",
-      "Amatic SC",
-      "Satisfy",
-      "Courgette",
-      "Dancing Script",
-      "Shadows Into Light",
-      "Great Vibes"
+      "Indie Flower", "Pacifico", "Amatic SC", "Satisfy",
+      "Courgette", "Dancing Script", "Shadows Into Light", "Great Vibes"
     ];
     const quotes = [
       "You're my favorite notification.",
@@ -185,92 +207,91 @@
       "You are my heart, my life, my entire existence.",
       "You are my definition of perfect.",
       "You’re not my number one, you’re my only one."
-    ];const imageShapes = ["img-circle", "img-rectangle", "img-heart"];
+    ];
+    const imageShapes = ["img-circle", "img-rectangle", "img-heart"];
+    const recentImages = [];
 
-const recentImages = [];
-function getRandomImage() {
-  let num;
-  do {
-    num = Math.floor(Math.random() * 30) + 1;
-  } while (recentImages.includes(num));
+    function getRandomImage() {
+      let num;
+      do {
+        num = Math.floor(Math.random() * 30) + 1;
+      } while (recentImages.includes(num));
+      recentImages.push(num);
+      if (recentImages.length > 5) recentImages.shift();
+      return num;
+    }
 
-  recentImages.push(num);
-  if (recentImages.length > 5) recentImages.shift();
-  return num;
-}
+    for (let i = 1; i <= 30; i++) {
+      const page = document.createElement("div");
+      page.className = "page";
 
-for (let i = 1; i <= 30; i++) {
-  const page = document.createElement("div");
-  page.className = "page";
+      const heart = document.createElement("img");
+      heart.src = "stickers/sketch-heart.png";
+      heart.className = "sketch-heart";
+      page.appendChild(heart);
 
-  const heart = document.createElement("img");
-  heart.src = "stickers/sketch-heart.png";
-  heart.className = "sketch-heart";
-  page.appendChild(heart);
+      const container = document.createElement("div");
+      container.className = "image-container";
+      for (let j = 0; j < 2 + (i % 2); j++) {
+        const imgNum = getRandomImage();
+        const img = document.createElement("img");
+        img.src = `images/${imgNum}.jpg`;
+        img.alt = "photo";
+        img.className = imageShapes[(i + j) % 3];
+        container.appendChild(img);
+      }
+      page.appendChild(container);
 
-  const container = document.createElement("div");
-  container.className = "image-container";
-  for (let j = 0; j < 2 + (i % 2); j++) {
-    const imgNum = getRandomImage();
-    const img = document.createElement("img");
-    img.src = `images/${imgNum}.jpg`;
-    img.alt = "photo";
-    img.className = imageShapes[(i + j) % 3];
-    container.appendChild(img);
-  }
-  page.appendChild(container);
+      const usedStickers = [];
+      const stickerShapes = ["img-circle", "img-rectangle", "img-heart"];
+      for (let s = 0; s < 3; s++) {
+        let stickerNum;
+        do {
+          stickerNum = Math.floor(Math.random() * 30) + 1;
+        } while (usedStickers.includes(stickerNum));
+        usedStickers.push(stickerNum);
 
-  const usedStickers = [];
-  const stickerShapes = ["img-circle", "img-rectangle", "img-heart"];
-  for (let s = 0; s < 3; s++) {
-    let stickerNum;
-    do {
-      stickerNum = Math.floor(Math.random() * 30) + 1;
-    } while (usedStickers.includes(stickerNum));
-    usedStickers.push(stickerNum);
+        const sticker = document.createElement("img");
+        sticker.src = `stickers/${stickerNum}.png`;
+        sticker.className = `sticker ${stickerShapes[Math.floor(Math.random() * 3)]}`;
+        sticker.style.top = Math.random() * 200 + "px";
+        sticker.style.left = Math.random() * 280 + "px";
+        const rotate = (Math.random() * 16 - 8).toFixed(2);
+        sticker.style.transform = `rotate(${rotate}deg)`;
+        page.appendChild(sticker);
+      }
 
-    const sticker = document.createElement("img");
-    sticker.src = `stickers/${stickerNum}.png`;
-    sticker.className = `sticker ${stickerShapes[Math.floor(Math.random() * 3)]}`;
-    sticker.style.top = Math.random() * 200 + "px";
-    sticker.style.left = Math.random() * 280 + "px";
-    const rotate = (Math.random() * 16 - 8).toFixed(2);
-    sticker.style.transform = `rotate(${rotate}deg)`;
-    page.appendChild(sticker);
-  }
+      const quote = document.createElement("div");
+      quote.className = "quote";
+      quote.innerText = quotes[i - 1];
+      quote.style.fontFamily = fonts[i % fonts.length];
+      page.appendChild(quote);
 
-  const quote = document.createElement("div");
-  quote.className = "quote";
-  quote.innerText = quotes[i - 1];
-  quote.style.fontFamily = fonts[i % fonts.length];
-  page.appendChild(quote);
+      book.appendChild(page);
+    }
 
-  book.appendChild(page);
-}
-
-let currentPage = 0;
-function updateBookPosition() {
-  const offset = -currentPage * 100;
-  book.style.transform = `translateX(${offset}vw)`;
-}
-function nextPage() {
-  if (currentPage < 15 - 1) {
-    currentPage++;
-    updateBookPosition();
-  }
-}
-function prevPage() {
-  if (currentPage > 0) {
-    currentPage--;
-    updateBookPosition();
-  }
-}
-function toggleMusic() {
-  const music = document.getElementById("bgMusic");
-  if (music.paused) music.play();
-  else music.pause();
-}
-
+    let currentPage = 0;
+    function updateBookPosition() {
+      const offset = -currentPage * 100;
+      book.style.transform = `translateX(${offset}vw)`;
+    }
+    function nextPage() {
+      if (currentPage < 15 - 1) {
+        currentPage++;
+        updateBookPosition();
+      }
+    }
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        updateBookPosition();
+      }
+    }
+    function toggleMusic() {
+      const music = document.getElementById("bgMusic");
+      if (music.paused) music.play();
+      else music.pause();
+    }
   </script>
 </body>
 </html>

@@ -1,88 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Our Memories 💖</title>
+  <meta charset="UTF-8" />
+  <title>Our Love Album 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet" />
   <style>
-    body {
+    * {
       margin: 0;
-      background: linear-gradient(135deg, #fff0f5, #ffe4e1);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      text-align: center;
-      padding: 20px;
+      padding: 0;
+      box-sizing: border-box;
     }
-
-    h1 {
+    body {
+      font-family: 'Dancing Script', cursive;
+      background: #fffafc;
+      overflow: hidden;
+      position: relative;
       color: #d63384;
-      font-size: 2.5em;
-      margin-bottom: 10px;
-      animation: fadeInDown 1s ease-out;
     }
-
-    p {
-      color: #555;
-      margin-bottom: 30px;
-      animation: fadeInUp 1s ease-out;
-    }
-
-    .hearts {
-      font-size: 1.5em;
-      animation: pulse 2s infinite;
-      color: #ff69b4;
-    }
-
-    .gallery {
+    .album {
+      width: 100vw;
+      height: 100vh;
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
       justify-content: center;
+      padding-top: 60px;
+      position: relative;
+    }
+    .photo {
+      width: 320px;
+      height: 450px;
+      border: 6px solid #ffccd5;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border-radius: 18px;
+      overflow: hidden;
+      background-color: white;
+      background-size: cover;
+      background-position: center;
+      transition: 0.5s ease-in-out;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      text-align: center;
+      padding-bottom: 20px;
+      position: relative;
+    }
+    .quote {
+      background: rgba(255, 255, 255, 0.7);
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      color: #d63384;
+      backdrop-filter: blur(4px);
+    }
+    .controls {
+      margin-top: 20px;
+      display: flex;
       gap: 20px;
-      animation: fadeIn 2s ease-in;
     }
-
-    .gallery img {
-      width: 220px;
-      height: auto;
-      border-radius: 20px;
-      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-      transition: transform 0.4s ease, box-shadow 0.3s ease;
+    .btn {
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      font-size: 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background 0.3s;
     }
-
-    .gallery img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
+    .btn:hover {
+      background-color: #ff1493;
     }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    .music-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
     }
-
-    @keyframes fadeInDown {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .heart {
+      position: absolute;
+      font-size: 24px;
+      color: #d63384;
+      animation: float 5s linear infinite;
+      opacity: 0.6;
     }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.2); }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0); }
+      100% { transform: translateY(-120vh) rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <h1>Our Sweet Memories 💑</h1>
-  <p class="hearts">❤️ 💗 💖 💘 💝 💞</p>
-  <div class="gallery">
-    <img src="IMG-20250612-WA0001.jpg" alt="memory1">
-    <img src="IMG-20250612-WA0002.jpg" alt="memory2">
-    <img src="IMG-20250612-WA0000.jpg" alt="memory3">
-    <!-- Add more images like below -->
-    <!-- <img src="your-image.jpg" alt="memoryX"> -->
+
+  <!-- Floating Hearts -->
+  <script>
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = 100 + Math.random() * 50 + 'vh';
+      heart.style.fontSize = (16 + Math.random() * 20) + 'px';
+      heart.style.opacity = 0.5 + Math.random() * 0.5;
+      heart.style.animationDuration = 6 + Math.random() * 5 + 's';
+      document.body.appendChild(heart);
+    }
+  </script>
+
+  <div class="album">
+    <div class="photo" id="photo"></div>
+    <div class="quote" id="quote">Loading...</div>
+    <div class="controls">
+      <button class="btn" onclick="prevPhoto()">⏮️ Previous</button>
+      <button class="btn" onclick="nextPhoto()">⏭️ Next</button>
+    </div>
   </div>
+
+  <!-- Music -->
+  <button class="btn music-btn" onclick="document.getElementById('bgMusic').play(); this.style.display='none';">
+    🎵 Play Music
+  </button>
+  <audio id="bgMusic" autoplay loop muted>
+    <source src="audio2.mp3" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
+
+  <script>
+    // Unmute music on first click
+    window.addEventListener('click', () => {
+      const audio = document.getElementById('bgMusic');
+      audio.muted = false;
+      audio.play();
+    }, { once: true });
+
+    // Image list (1.jpg to 30.jpg)
+    const images = Array.from({ length: 30 }, (_, i) => `images/${i + 1}.jpg`);
+
+    // Romantic quotes list
+    const quotes = [
+      "You are my today and all of my tomorrows 💖",
+      "Together is my favorite place to be.",
+      "Every love story is beautiful, but ours is my favorite.",
+      "Your smile is my sunshine ☀️",
+      "You make my heart skip a beat.",
+      "I still get butterflies every time I see you.",
+      "Falling in love with you was the best decision ever.",
+      "You complete me 💕",
+      "Forever isn't long enough with you.",
+      "You are my happy place.",
+      "With you, every moment is magical ✨",
+      "Loving you is like breathing, I just can't stop.",
+      "You are the melody in my life 🎶",
+      "You're the reason I believe in love.",
+      "Our love is written in the stars ✨",
+      "I love you more than words can say.",
+      "You're my moon and stars 🌙",
+      "My heart beats for you only 💗",
+      "I’m lucky to have you in my life.",
+      "You are the dream I never want to wake up from.",
+      "Forever starts with us.",
+      "You are my once in a lifetime ❤️",
+      "Your love lights up my world 🌟",
+      "You're the piece I was missing 🧩",
+      "You're my favorite notification 📲",
+      "Home is wherever I’m with you 🏡",
+      "I fall in love with you more every day 💞",
+      "You're my calm in the chaos 🌸",
+      "You're the reason I smile 😊",
+      "You are my sweetest hello and hardest goodbye 💌"
+    ];
+
+    let current = 0;
+
+    function showPhoto(index) {
+      const photo = document.getElementById('photo');
+      const quote = document.getElementById('quote');
+      photo.style.backgroundImage = `url('${images[index]}')`;
+      quote.textContent = quotes[index % quotes.length];
+    }
+
+    function nextPhoto() {
+      current = (current + 1) % images.length;
+      showPhoto(current);
+    }
+
+    function prevPhoto() {
+      current = (current - 1 + images.length) % images.length;
+      showPhoto(current);
+    }
+
+    showPhoto(current);
+  </script>
+
 </body>
 </html>

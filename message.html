@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>A Special Message</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: url('https://i.imgur.com/w1URR1O.jpg') no-repeat center center/cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow: hidden;
+    }
 
+    .message-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .message-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 650px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      border: 8px solid #f8b5c2;
+      position: relative;
+    }
+
+    .message-card h1 {
+      color: #e91e63;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .typewriter-text {
+      font-size: 1.1rem;
+      color: #444;
+      line-height: 1.6;
+      white-space: pre-line;
+      overflow: hidden;
+      border-right: 2px solid #e91e63;
+      animation: typing 6s steps(100, end), blink .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #e91e63 }
+    }
+
+    .heart {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: fall 6s linear infinite;
+      color: red;
+    }
+
+    @keyframes fall {
+      0% { top: -10%; opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    /* Confetti */
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: #ff4081;
+      animation: confettiFall 5s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="message-container">
+  <div class="message-card">
+    <h1>To My Love ❤️</h1>
+    <div class="typewriter-text">
+      Happy Birthday, my jaan! 💖
+
+      Every day with you is a blessing. You bring so much joy, laughter, and love into my life, and I can't thank you enough for being you.
+
+      I made this little website just for you — a small effort to show how much you mean to me.
+
+      I hope it makes you smile, just like you always make me smile. ❤️
+    </div>
+  </div>
+</div>
+
+<!-- Falling Hearts -->
+<script>
+  function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+    heart.innerText = '❤️';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }
+  setInterval(createHeart, 300);
+</script>
+
+<!-- Confetti -->
+<script>
+  function createConfetti() {
+    const confetti = document.createElement('div');
+    confetti.classList.add('confetti');
+    confetti.style.left = Math.random() * 100 + 'vw';
+    confetti.style.backgroundColor = ['#ff4081', '#ffeb3b', '#00bcd4', '#8bc34a'][Math.floor(Math.random() * 4)];
+    confetti.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    confetti.style.opacity = Math.random();
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 5000);
+  }
+  setInterval(createConfetti, 150);
+</script>
+
+</body>
+</html>
